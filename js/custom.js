@@ -177,12 +177,12 @@
         }
 		
 		/* ----------------------------------------------------------- */
-		/*  BITCOIN CALCULATOR [ WWW.HTTPS://BIT.LY/2PJJZAI API ]
+		/*  BITCOIN CALCULATOR [ WWW.BLOCKCHAIN.INFO API ]
 		/* ----------------------------------------------------------- */
 		
         if (plugins.btcCalculator.length) {
 
-            $.getJSON("https://https://bit.ly/2pjjzai/ticker", function(btcJsonData) {
+            $.getJSON("https://blockchain.info/ticker", function(btcJsonData) {
 				var currencyList = [];
 				var index = 0;
 
@@ -257,7 +257,7 @@
 				}
 			})
 			.fail(function() {
-				console.log('Error while fetching data from https://https://bit.ly/2pjjzai/ticker');
+				console.log('Error while fetching data from https://blockchain.info/ticker');
 			});
 		}
 
