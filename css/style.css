@@ -75,7 +75,7 @@ label{
     border-color:transparent;
 }
 .navbar-default .navbar-brand {
-     font-size: 3em;
+     font-size: 1.5em;
     color: #FFF;
     text-shadow: 3px 3px #000000;
 	text-decoration:none;
@@ -90,9 +90,8 @@ label{
 }
 .navbar-default .navbar-nav>li>a {
     color: #FFFEFE;
-    letter-spacing: 1px;
     text-transform: uppercase;
-    padding: 29px 13px;
+    padding:20px 13px;
     font-weight: 400;
 }
 .navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
