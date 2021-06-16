@@ -1,7 +1,7 @@
 (function ($) {
 
 	// copyrigths year
-	$.fn.copyrights = () => {
+	$.fn.copyrights = function () {
 
 		// to use this for variable selectors
 		return this.each(function () {
@@ -11,7 +11,7 @@
 	};
 
 	// Developer
-	$.fn.developer = () => {
+	$.fn.developer = function() {
 		return this.each(function () {
 			$(this).html('<a href="https://potterincorporated.com" target="_blank">Potter Inc&trade;</a>');
 		})

@@ -15,11 +15,11 @@
         <div class="input-group">
             <input type="number" min="100" max="3999" class="form-control input-sm">
             <span class="input-group-btn">
-                <button class="btn btn-success input-sm" type="button">Pay</button>
+                <button class="btn btn-primary input-sm" data-toggle="modal" data-target="#modal-default" type="button">Pay</button>
             </span>
         </div>
     </div>
-    <div class="col-md-3 panel text-center">
+    <div class="col-md-3 panel text-center" id="premium">
         <div class="panel-header">
             <h3>PREMIUM</h3>
             <span>(48 Hrs Maturity)</span>
@@ -30,13 +30,13 @@
                 class="para-agileits-w3layouts">$13,999</small>
         </div>
         <div class="input-group">
-            <input type="number" min="100" max="3999" class="form-control input-sm">
+            <input type="number" min="4000" max="13999" class="form-control input-sm">
             <span class="input-group-btn">
-                <button class="btn btn-success input-sm" type="button">Pay</button>
+                <button class="btn btn-primary input-sm" data-toggle="modal" data-target="#modal-default" type="button">Pay</button>
             </span>
         </div>
     </div>
-    <div class="col-md-3 panel text-center">
+    <div class="col-md-3 panel text-center" id="bronze">
         <div class="panel-header">
             <h3>BRONZE</h3>
             <span>(72 Hrs Maturity)</span>
@@ -49,11 +49,11 @@
         <div class="input-group">
             <input type="number" min="100" max="3999" class="form-control input-sm">
             <span class="input-group-btn">
-                <button class="btn btn-success input-sm" type="button">Pay</button>
+                <button class="btn btn-primary input-sm" data-toggle="modal" data-target="#modal-default" type="button">Pay</button>
             </span>
         </div>
     </div>
-    <div class="col-md-3 panel text-center">
+    <div class="col-md-3 panel text-center" id="opulence">
         <div class="panel-header">
             <h3>OPULENCE</h3>
             <span>(96 Hrs Maturity)</span>
@@ -66,13 +66,18 @@
         <div class="input-group">
             <input type="number" min="100" max="3999" class="form-control input-sm">
             <span class="input-group-btn">
-                <button class="btn btn-success input-sm" type="button">Pay</button>
+                <button class="btn btn-primary input-sm" data-toggle="modal" data-target="#modal-default" type="button">Pay</button>
             </span>
         </div>
+    </div> 
+    <div class="clearfix"></div>
+    <div class="panel panel-default text-center mt-3 bg-info">
+        <h1 class="text-uppercase">MINING PACKAGES</h3>
+            <small><i>N/B: All transactions are confirmed before your wallet is credited</i></small>
     </div>
-    <div class="col-md-3 panel text-center">
+    <div class="col-md-3 panel text-center" id="clarke">
         <div class="panel-header">
-            <h4>CLARKE MINING</h4>
+            <h3>CLARKE </h3>
             <span>(48hrs Maturity)</span>
         </div>
         <div class="panel-body">
@@ -83,13 +88,13 @@
         <div class="input-group">
             <input type="number" min="100" max="3999" class="form-control input-sm">
             <span class="input-group-btn">
-                <button class="btn btn-success input-sm" type="button">Pay</button>
+                <button class="btn btn-primary input-sm" data-toggle="modal" data-target="#modal-default" type="button">Pay</button>
             </span>
         </div>
     </div>
-    <div class="col-md-3 panel text-center">
+    <div class="col-md-3 panel text-center" id="tardis">
         <div class="panel-header">
-            <h4>TARDIS MINING</h4>
+            <h3>TARDIS </h3>
             <span>(72 Hrs Maturity)</span>
         </div>
         <div class="panel-body">
@@ -100,13 +105,13 @@
         <div class="input-group">
             <input type="number" min="100" max="3999" class="form-control input-sm">
             <span class="input-group-btn">
-                <button class="btn btn-success input-sm" type="button">Pay</button>
+                <button class="btn btn-primary input-sm" data-toggle="modal" data-target="#modal-default" type="button">Pay</button>
             </span>
         </div>
     </div>
-    <div class="col-md-3 panel text-center">
+    <div class="col-md-3 panel text-center" id="superior">
         <div class="panel-header">
-            <h4>SUPERIOR MINING</h4>
+            <h3>SUPERIOR </h3>
             <span>(96 Hrs Maturity)</span>
         </div>
         <div class="panel-body">
@@ -117,13 +122,13 @@
         <div class="input-group">
             <input type="number" min="100" max="3999" class="form-control input-sm">
             <span class="input-group-btn">
-                <button class="btn btn-success input-sm" type="button">Pay</button>
+                <button class="btn btn-primary input-sm" data-toggle="modal" data-target="#modal-default" type="button">Pay</button>
             </span>
         </div>
     </div>
-    <div class="col-md-3 panel text-center">
+    <div class="col-md-3 panel text-center" id="black-box">
         <div class="panel-header">
-            <h4>BLACK BOX MINING</h4>
+            <h3>BLACK BOX </h3>
             <span>(7 Days Maturity)</span>
         </div>
         <div class="panel-body">
@@ -134,9 +139,36 @@
         <div class="input-group">
             <input type="number" min="100" max="3999" class="form-control input-sm">
             <span class="input-group-btn">
-                <button class="btn btn-success input-sm" type="button">Pay</button>
+                <button class="btn btn-primary input-sm" data-toggle="modal" data-target="#modal-default" type="button">Pay</button>
             </span>
         </div>
     </div>
     <div class="clearfix"> </div>
 </div>
+
+<!-- modal -->
+<div class="modal fade" id="modal-default" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                <div class="signin-form profile">
+                    <h3 id="plan-info"></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#startup').mouseover(()=> $('#plan-info').html($('#startup h3').html()))
+    $('#premium').mouseover(()=> $('#plan-info').html($('#premium h3').html()))
+    $('#bronze').mouseover(()=> $('#plan-info').html($('#bronze h3').html()))
+    $('#opulence').mouseover(()=> $('#plan-info').html($('#opulence h3').html()))
+    $('#clarke').mouseover(()=> $('#plan-info').html($('#clarke h3').html()))
+    $('#tardis').mouseover(()=> $('#plan-info').html($('#tardis h3').html()))
+    $('#superior').mouseover(()=> $('#plan-info').html($('#superior h3').html()))
+    $('#black-box').mouseover(()=> $('#plan-info').html($('#black-box h3').html()))
+</script>
