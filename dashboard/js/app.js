@@ -19,9 +19,19 @@ $('#SignIn').click(() => {
 $('#SignUp').click(() => {
     authenticate.validateInput('validateUser');
     if (authenticate.flag == true) {
-        login.SignUp();
-        authenticate.flag = false;
-        return authenticate.flag;
+        if (Investor.Password.verify.val() != Investor.Password.signUp.val()) {
+            Investor.errorMsg = "Password does not match"
+            $('#SignUpNotification').addClass("alert alert-danger");
+            $('#SignUpNotification').html(Investor.errorMsg);
+            setTimeout(() => {
+                $('#SignUpNotification').fadeOut(1000);
+            }, 5000)
+            $('#SignUpNotification').val(null).show();
+        } else {
+            Login.signUp();
+            authenticate.flag = false;
+            return authenticate.flag;
+        }
     }
 })
 
@@ -33,9 +43,7 @@ $('#logout').click(() => {
 
 
 
-var Login = {
-    Email: $('#LoginEmail'),
-    Password: $('#LoginPassword'),
+const Login = {
     loginSession: () => {
         if (localStorage.getItem('status') === 'true') {
             $('.menu-title').html(localStorage.getItem('name'))
@@ -56,15 +64,15 @@ var Login = {
     },
     signIn: () => {
         $.ajax({
-            url: 'https://filmplace.potterincorporated.com/config/auth.php',
+            url: '../src/auth.php',
             type: authenticate.type.POST,
             dataType: authenticate.JSON,
             beforeSend: () => {
-                $('#SignIn').html('<img src="./images/preloader/fading_circles.gif" width="50" />');
+                $('#SignIn').html('<img src="dashboard/images/preloader/fading_circles.gif" />');
             },
             data: {
-                loginEmail: Login.Email.val(),
-                loginPassword: Login.Password.val(),
+                loginEmail: Investor.Email.login.val(),
+                loginPassword: Investor.Password.login.val(),
             },
             success: (asyncRequest) => {
                 Login.Email.val(null);
@@ -91,30 +99,20 @@ var Login = {
     },
     signUp: () => {
         $.ajax({
-            url: 'https://filmplace.potterincorporated.com/config/auth.php',
+            url: 'src/auth.php',
             type: authenticate.type.POST,
             dataType: authenticate.JSON,
+            beforeSend: () => $('#SignUp').html('<img src="dashboard/images/preloader/fading_circles.gif" />'),
             data: {
-                fullName: SignUp.fullName.val(),
-                newUserEmail: SignUp.Email.val(),
-                telephone: SignUp.telephone.val(),
-                NewSecurityQuestion: SignUp.Question.val(),
-                answer: SignUp.Answer.val(),
-                password: SignUp.Password.val(),
-                dateOfRegistration: SignUp.getToday()
-            },
-            beforeSend: () => {
-                $('#SignUp').html('<img src="./images/preloader/fading_circles.gif" width="32" />');
+                email: Investor.Email.signUp.val(),
+                password: Investor.Password.signUp.val(),
+                username: Investor.username.val(),
+                dateOfRegistration: Investor.getToday()
             },
             success: (asyncRequest) => {
-                SignUp.fullName.val(null);
-                SignUp.Email.val(null);
-                SignUp.telephone.val(null);
-                SignUp.Question.val('null');
-                SignUp.Answer.val(null);
-                SignUp.Password.val(null);
-                $('#SignUp').html('Sign Up');
-
+                Investor.Email.signUp.val(null);
+                Investor.Password.signUp.val(null);
+                $('#SignUp').val('Register');
                 $('#SignUpNotification').html(asyncRequest.Message);
                 setTimeout(() => {
                     $('#SignUpNotification').fadeOut(1000);
@@ -126,15 +124,24 @@ var Login = {
     }
 }
 
-var SignUp = {
-    fullName: $('#FullName'),
-    telephone: $('#Telephone'),
-    Question: $('#NewQuestion'),
-    Email: $('#NewEmail'),
-    Answer: $('#NewAnswer'),
-    Password: $('#NewPassword'),
+const Investor = {
+    // fullName: $('#FullName'),
+    // telephone: $('#Telephone'),
+    // Question: $('#NewQuestion'),
+    // Answer: $('#NewAnswer'),
+    Email: {
+        login: $('#login-form [name="email"]'),
+        signUp: $('#sign-up-form #email')
+    },
+    username: $('#sign-up-form #username'),
+    Password: {
+        login: $('#login-form [name="password"]'),
+        signUp: $('#sign-up-form #password'),
+        verify: $('#sign-up-form #confirm-password')
+    },
+    errorMsg: "",
     /**
-     * Get the current date of the client system in YYYY-DD-MM format
+     * Get the current date of the client system in YYYY-MM-DD format
      */
     getToday: () => {
         // const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -148,17 +155,10 @@ var SignUp = {
     }
 }
 
-var authenticate = {
+const authenticate = {
     flag: false,
-    Email: $('#Email'),
-    Password: $('#ResetPassword'),
     JSON: 'JSON',
     type: { POST: 'POST', GET: 'GET' },
-    Question: $('#SecurityQuestion'),
-    Answer: $('#Answer'),
-    ChangePassword: $('#Reset'), //Change Password markup
-    verifiedUserId: $('#VerifiedUserId'),
-    confirmNewPassword: $('#ConfirmResetPassword'),
     validateInput: (inputArgs) => {
         let validInput = $('[' + inputArgs + ']');
         for (let formInput = 0; formInput < validInput.length; formInput++) {

@@ -16,7 +16,7 @@ body a {
 a:hover{
  text-decoration:none;
 }
-input[type="button"],input[type="submit"]{
+input[type="button"],input[type="submit"], button{
 	transition:0.5s all;
 	-webkit-transition:0.5s all;
 	-moz-transition:0.5s all;
@@ -551,9 +551,6 @@ h3.agileinfo_sign  {
 .signin-form h3 span {
     color: #67e1ff;
 }
-.signin-form img {
-    width:100%;
-}
 .login-form {
     margin: 1em 0 2.5em;
 }
@@ -590,7 +587,7 @@ h3.agileinfo_sign  {
 .signin-form textarea {
 	min-height:100px;
 }
-.signin-form input[type="submit"] {
+.signin-form input[type="submit"], .signin-form button {
     outline: none;
     padding: 0.8em 0;
     width: 100%;
@@ -605,7 +602,7 @@ h3.agileinfo_sign  {
     box-shadow: 0px 2px 1px rgba(28, 28, 29, 0.42);
 	
 }
-.signin-form input[type="submit"]:hover {
+.signin-form input[type="submit"]:hover, .signin-form button{
     color: #fff;
        background: #202020;
     transition: .5s all;
@@ -673,9 +670,7 @@ h3.agileinfo_sign  {
 }
 /*-- //registration --*/
 /*--modal--*/
-.modal-content  img{
-	width:100%;
-}
+
 .modal-content h4 {
     color: #000;
     text-align: center;
@@ -1837,7 +1832,7 @@ ul.w3_address li span {
 	transition: all 0.075s; 
 } 
 /*-- //input-effect --*/
-.contact input[type="submit"] {
+.contact input[type="submit"], .contact button{
     outline: none;
     color: #FFFFFF;
     padding: 10px 54px;
@@ -1854,7 +1849,7 @@ ul.w3_address li span {
     transition: 0.5s all;
     font-weight: 600;
 }
-.contact input[type="submit"]:hover {
+.contact input[type="submit"]:hover, .contact button:hover{
 	color:#000;
     background: #fff;
     border: 1px solid #303841;
@@ -2594,7 +2589,7 @@ ul.w3_address li span {
 		padding: 7px 40px;
 		font-size: 12px;
 	}
-	.contact input[type="submit"] {
+	.contact input[type="submit"], .contact button{
 		padding: 7px 40px;
 		font-size: 12px;
 	}

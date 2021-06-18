@@ -2,7 +2,7 @@
     define("SERVER", 'localhost');
     define("USER", 'root');
     define("PASSWORD", '');
-    define("DB", 'celteck_wireless');
+    define("DB", 'elandercoin');
 
     $conn = new mysqli(SERVER, USER, PASSWORD, DB);
     if (!$conn)
