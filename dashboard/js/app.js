@@ -25,7 +25,7 @@ $('#SignUp').click(() => {
             setTimeout(() => {
                 $('#SignUpNotification').fadeOut(1000);
             }, 5000)
-            $('#SignUpNotification').val(null).show();
+            $('#SignUpNotification').html(null).show();
             Investor.errorMsg = null;
         } else {
             Login.signUp();
@@ -75,12 +75,12 @@ const Login = {
                 loginPassword: Investor.Password.login.val(),
             },
             success: (asyncRequest) => {
-                Login.Email.login.val(null);
-                Login.Password.login.val(null);
+                Investor.Email.login.val(null);
+                Investor.Password.login.val(null);
                 $('#SignIn').html('LOGIN');
-                if (asyncRequest.Status === true) {
+                if (asyncRequest.status === true) {
                     localStorage.setItem('username', asyncRequest.username);
-                    localStorage.setItem('status', asyncRequest.Status);
+                    localStorage.setItem('status', asyncRequest.status);
                     localStorage.setItem('id', asyncRequest.clientId);
                     localStorage.setItem('email', asyncRequest.email);
                     location.href = 'dashboard/';
@@ -94,7 +94,7 @@ const Login = {
                     $('#loginStatus').fadeOut(1000);
                 }, 5000);
 
-                $('#loginStatus').val(null).show();
+                $('#loginStatus').html(null).show();
             }
         })
 
@@ -126,7 +126,7 @@ const Login = {
                     $('#SignUpNotification').val(null).show();
                     return false;
                 } else {
-                    $('#SignUpNotification').html(asyncRequest.succces).addClass("alert alert-success");
+                    $('#SignUpNotification').html(asyncRequest.ok).addClass("alert alert-success");
                     setTimeout(() => {
                         $('#SignUpNotification').fadeOut(1000);
                         $('#SignUpNotification').val(null).show();

@@ -3,28 +3,33 @@
 require_once 'conn.php';
 
 # Login Algorithm
-if (isset($_REQUEST['dfd']) || isset($_REQUEST['passwdord'])) {
+if (isset($_REQUEST['loginEmail']) || isset($_REQUEST['loginPassword'])) {
     # SANITIZE EMAIL
-    $email = filter_var(trim($_REQUEST['email']), FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z0-9.@_-]+$/")));
-
+    $email = filter_var(trim($_REQUEST['loginEmail']), FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z0-9.@_-]+$/")));
+    $username = filter_var(trim($_REQUEST['loginEmail']), FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z0-9]+$/")));
 
     # SERVER QUERY
-    $sign_in_query = 'SELECT * FROM investor WHERE user_email_address ="' . $emakil . '"';
-    $result = $conn->query($sign_in_query);
+    $sign_in = 'SELECT * FROM investor WHERE client_email ="' . $email . '" OR client_name="'. $username.'"';
+    $result = $conn->query($sign_in);
 
     if ($result->num_rows > 0) {
         while ($data = $result->fetch_assoc()) {
             # DECRYPT PASSWORD
-            if (password_verify($_REQUEST['password'], $data['user_password'])) {
-                session_start();
-                $_SESSION['FullName'] = $data['user_full_name'];
-                print('<script>window.location.href = "../sms/dashboard"</script>');
+            if (password_verify($_REQUEST['loginPassword'], $data['client_password'])) {
+                $response['username'] = $data['client_name'];
+                $response['status'] = TRUE;
+                $response['clientId'] = $data['client_id'];
+                $response['email'] = $data['client_email'];
+                print(json_encode($response, JSON_PRETTY_PRINT));
             } else {
-                print('<small class="alert alert-danger w3-animate-bottom">Invalid Email/Password</small>');
+                $response['error'] = 'Invalid Email/Password';
+                print($conn->error);
+                print(json_encode($response, JSON_PRETTY_PRINT));
             }
         }
     } else {
-        print('<small class="alert alert-danger w3-animate-bottom">Email does not exist</small>');
+        $response['error'] = "Email does not exist";
+        print(json_encode($response, JSON_PRETTY_PRINT));
     }
 }
 
@@ -48,9 +53,9 @@ if (isset($_REQUEST['email']) || isset($_REQUEST['username'])) {
     VALUES ("' . $username . '","' . $email . '",' . 0.00 . ',' . 0.00 . ',"' . password_hash($_REQUEST["password"], PASSWORD_DEFAULT)  . '","' . $_REQUEST["dateOfRegistration"] . '")';
     $result = $conn->query($sign_up);
     if ($result == TRUE) {
-        $response["success"] = "Registration Successful";
+        $response["ok"] = "Registration Successful";
     } else {
-        $response["error"] = "Username already exists: Try Again";
+        $response["error"] = "Username/Email already exists: Try Again";
     }
     print(json_encode($response, JSON_PRETTY_PRINT));
 }
