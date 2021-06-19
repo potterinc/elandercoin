@@ -19,14 +19,14 @@ $('#SignIn').click(() => {
 $('#SignUp').click(() => {
     authenticate.validateInput('validateUser');
     if (authenticate.flag == true) {
-        if (Investor.Password.verify.val() != Investor.Password.signUp.val()) {
-            Investor.errorMsg = "Password does not match"
-            $('#SignUpNotification').addClass("alert alert-danger");
-            $('#SignUpNotification').html(Investor.errorMsg);
+        if (Investor.Password.verify.val() != Investor.Password.signUp.val() || Investor.Password.signUp.val().length < 6) {
+            Investor.errorMsg = "Password does not match or too short"
+            $('#SignUpNotification').html(Investor.errorMsg).addClass("alert alert-danger");
             setTimeout(() => {
                 $('#SignUpNotification').fadeOut(1000);
             }, 5000)
             $('#SignUpNotification').val(null).show();
+            Investor.errorMsg = null;
         } else {
             Login.signUp();
             authenticate.flag = false;
@@ -64,7 +64,7 @@ const Login = {
     },
     signIn: () => {
         $.ajax({
-            url: '../src/auth.php',
+            url: 'src/auth.php',
             type: authenticate.type.POST,
             dataType: authenticate.JSON,
             beforeSend: () => {
@@ -75,18 +75,20 @@ const Login = {
                 loginPassword: Investor.Password.login.val(),
             },
             success: (asyncRequest) => {
-                Login.Email.val(null);
-                Login.Password.val(null);
+                Login.Email.login.val(null);
+                Login.Password.login.val(null);
+                $('#SignIn').html('LOGIN');
                 if (asyncRequest.Status === true) {
-                    localStorage.setItem('name', asyncRequest.fullName);
+                    localStorage.setItem('username', asyncRequest.username);
                     localStorage.setItem('status', asyncRequest.Status);
-                    localStorage.setItem('id', asyncRequest.userId);
-                    localStorage.setItem('telephone', asyncRequest.telephone);
-                    location.href = './main.html';
+                    localStorage.setItem('id', asyncRequest.clientId);
+                    localStorage.setItem('email', asyncRequest.email);
+                    location.href = 'dashboard/';
                 }
-                else
-                    $('#loginStatus').html(asyncRequest.Message);
-                $('#SignIn').html('Sign In');
+                else {
+                    $('#loginStatus').html(asyncRequest.error).addClass('alert alert-danger');
+                    $('#SignIn').html('LOGIN');
+                }
 
                 setTimeout(() => {
                     $('#loginStatus').fadeOut(1000);
@@ -112,13 +114,25 @@ const Login = {
             success: (asyncRequest) => {
                 Investor.Email.signUp.val(null);
                 Investor.Password.signUp.val(null);
-                $('#SignUp').val('Register');
-                $('#SignUpNotification').html(asyncRequest.Message);
-                setTimeout(() => {
-                    $('#SignUpNotification').fadeOut(1000);
+                Investor.Password.verify.val(null);
+                Investor.username.val(null);
+                $('#SignUp').html('Register');
+
+                if (asyncRequest.error != null) {
+                    $('#SignUpNotification').html(asyncRequest.error).addClass("alert alert-warning");
+                    setTimeout(() => {
+                        $('#SignUpNotification').fadeOut(1000);
+                    }, 5000)
                     $('#SignUpNotification').val(null).show();
-                    location.href = 'index.html';
-                }, 5000)
+                    return false;
+                } else {
+                    $('#SignUpNotification').html(asyncRequest.succces).addClass("alert alert-success");
+                    setTimeout(() => {
+                        $('#SignUpNotification').fadeOut(1000);
+                        $('#SignUpNotification').val(null).show();
+                        location.href = 'index.html';
+                    }, 5000)
+                }
             }
         })
     }
@@ -139,8 +153,8 @@ const Investor = {
         signUp: $('#sign-up-form #password'),
         verify: $('#sign-up-form #confirm-password')
     },
-    errorMsg: "",
-    /**
+    errorMsg: null,
+    /**null
      * Get the current date of the client system in YYYY-MM-DD format
      */
     getToday: () => {

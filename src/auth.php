@@ -3,13 +3,13 @@
 require_once 'conn.php';
 
 # Login Algorithm
-if (isset($_REQUEST['email']) || isset($_REQUEST['password'])) {
+if (isset($_REQUEST['dfd']) || isset($_REQUEST['passwdord'])) {
     # SANITIZE EMAIL
     $email = filter_var(trim($_REQUEST['email']), FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z0-9.@_-]+$/")));
 
 
     # SERVER QUERY
-    $sign_in_query = 'SELECT * FROM investor WHERE user_email_address ="' . $email . '"';
+    $sign_in_query = 'SELECT * FROM investor WHERE user_email_address ="' . $emakil . '"';
     $result = $conn->query($sign_in_query);
 
     if ($result->num_rows > 0) {
@@ -32,26 +32,27 @@ if (isset($_REQUEST['email']) || isset($_REQUEST['password'])) {
 if (isset($_REQUEST['email']) || isset($_REQUEST['username'])) {
     // Sanitize Name and Email
     $email = filter_var(trim($_REQUEST['email']), FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z0-9.@_-]+$/")));
-    $username = filter_var(trim($_REQUEST['fullName']), FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z0-9]+$/")));
-    
+    $username = filter_var(trim($_REQUEST['username']), FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z0-9]+$/")));
+
     if ($email == NULL) {
         $response["error_msg"] = "Invalid Email";
+        print(json_encode($response, JSON_PRETTY_PRINT));
         return FALSE;
-    } elseif ($name == NULL) {
-        $response["error_msg"] = 'Invalid Name';
+    } elseif ($username == NULL) {
+        $response["error"] = 'Invalid Name';
+        print(json_encode($response, JSON_PRETTY_PRINT));
         return FALSE;
     }
 
-    $sign_up_query = 'INSERT INTO investor (user_name, client_email, total_investment, wallet balance, client_password, date_of_reg)
-            VALUES ("' . $username . '","' . $email . '","' . password_hash($_REQUEST["addPassword"], PASSWORD_DEFAULT) .
-        '","' . $_REQUEST["addSecurityQuestion"] . '", "' . $_REQUEST["addAnswer"] . '","' . date("Y-m-d") . '")';
-    $result = $conn->query($sql_query);
+    $sign_up = 'INSERT INTO investor (client_name, client_email, total_investment, wallet_balance, client_password, date_of_reg) 
+    VALUES ("' . $username . '","' . $email . '",' . 0.00 . ',' . 0.00 . ',"' . password_hash($_REQUEST["password"], PASSWORD_DEFAULT)  . '","' . $_REQUEST["dateOfRegistration"] . '")';
+    $result = $conn->query($sign_up);
     if ($result == TRUE) {
-        print('<small class="alert alert-success w3-animate-bottom"><strong>Success:</strong> Account Created</small>');
+        $response["success"] = "Registration Successful";
     } else {
-        print('<small class="alert alert-warning w3-animate-bottom">Email Already Exists</small>');
-        // echo $conn->connect_error;
+        $response["error"] = "Username already exists: Try Again";
     }
+    print(json_encode($response, JSON_PRETTY_PRINT));
 }
 
 # Password verification
