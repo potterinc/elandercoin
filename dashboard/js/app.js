@@ -46,13 +46,12 @@ $('#logout').click(() => {
 const Login = {
     loginSession: () => {
         if (localStorage.getItem('status') === 'true') {
-            $('.menu-title').html(localStorage.getItem('name'))
+            $('.menu-title').html(localStorage.getItem(''))
             $('#userID').html(localStorage.getItem('id'))
-            $('#owner').val(localStorage.getItem('name'));
-            $('#owner-phone').val(localStorage.getItem('telephone'))
+            $('.username').html(localStorage.getItem('username'));
         }
         else
-            location.href = 'index.html';
+            location.href = '../index.html';
     },
     logout: () => {
         localStorage.clear();
@@ -60,7 +59,7 @@ const Login = {
     },
     activeSession: () => {
         if (localStorage.getItem('status') == 'true')
-            location.href = 'main.html';
+            location.href = 'dashboard/';
     },
     signIn: () => {
         $.ajax({
@@ -166,6 +165,9 @@ const Investor = {
         let year = dateObj.getFullYear();
         let output = year + "-" + month + "-" + day;
         return output;
+    },
+    getBalance: ()=>{
+        
     }
 }
 

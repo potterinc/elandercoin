@@ -15,7 +15,8 @@
         <div class="input-group">
             <input type="number" min="100" max="3999" class="form-control input-sm">
             <span class="input-group-btn">
-                <button class="btn btn-primary input-sm" data-toggle="modal" data-target="#modal-default" type="button">Pay</button>
+                <button class="btn btn-primary input-sm" data-toggle="modal" data-target="#modal-default"
+                    type="button">Pay</button>
             </span>
         </div>
     </div>
@@ -32,7 +33,8 @@
         <div class="input-group">
             <input type="number" min="4000" max="13999" class="form-control input-sm">
             <span class="input-group-btn">
-                <button class="btn btn-primary input-sm" data-toggle="modal" data-target="#modal-default" type="button">Pay</button>
+                <button class="btn btn-primary input-sm" data-toggle="modal" data-target="#modal-default"
+                    type="button">Pay</button>
             </span>
         </div>
     </div>
@@ -49,7 +51,8 @@
         <div class="input-group">
             <input type="number" min="100" max="3999" class="form-control input-sm">
             <span class="input-group-btn">
-                <button class="btn btn-primary input-sm" data-toggle="modal" data-target="#modal-default" type="button">Pay</button>
+                <button class="btn btn-primary input-sm" data-toggle="modal" data-target="#modal-default"
+                    type="button">Pay</button>
             </span>
         </div>
     </div>
@@ -66,10 +69,11 @@
         <div class="input-group">
             <input type="number" min="100" max="3999" class="form-control input-sm">
             <span class="input-group-btn">
-                <button class="btn btn-primary input-sm" data-toggle="modal" data-target="#modal-default" type="button">Pay</button>
+                <button class="btn btn-primary input-sm" data-toggle="modal" data-target="#modal-default"
+                    type="button">Pay</button>
             </span>
         </div>
-    </div> 
+    </div>
     <div class="clearfix"></div>
     <div class="panel panel-default text-center mt-3 bg-info">
         <h1 class="text-uppercase">MINING PACKAGES</h3>
@@ -88,7 +92,8 @@
         <div class="input-group">
             <input type="number" min="100" max="3999" class="form-control input-sm">
             <span class="input-group-btn">
-                <button class="btn btn-primary input-sm" data-toggle="modal" data-target="#modal-default" type="button">Pay</button>
+                <button class="btn btn-primary input-sm" data-toggle="modal" data-target="#modal-default"
+                    type="button">Pay</button>
             </span>
         </div>
     </div>
@@ -105,7 +110,8 @@
         <div class="input-group">
             <input type="number" min="100" max="3999" class="form-control input-sm">
             <span class="input-group-btn">
-                <button class="btn btn-primary input-sm" data-toggle="modal" data-target="#modal-default" type="button">Pay</button>
+                <button class="btn btn-primary input-sm" data-toggle="modal" data-target="#modal-default"
+                    type="button">Pay</button>
             </span>
         </div>
     </div>
@@ -122,7 +128,8 @@
         <div class="input-group">
             <input type="number" min="100" max="3999" class="form-control input-sm">
             <span class="input-group-btn">
-                <button class="btn btn-primary input-sm" data-toggle="modal" data-target="#modal-default" type="button">Pay</button>
+                <button class="btn btn-primary input-sm" data-toggle="modal" data-target="#modal-default"
+                    type="button">Pay</button>
             </span>
         </div>
     </div>
@@ -139,7 +146,8 @@
         <div class="input-group">
             <input type="number" min="100" max="3999" class="form-control input-sm">
             <span class="input-group-btn">
-                <button class="btn btn-primary input-sm" data-toggle="modal" data-target="#modal-default" type="button">Pay</button>
+                <button class="btn btn-primary input-sm" data-toggle="modal" data-target="#modal-default"
+                    type="button">Pay</button>
             </span>
         </div>
     </div>
@@ -156,6 +164,30 @@
 
                 <div class="signin-form profile">
                     <h3 id="plan-info"></h3>
+                    <h5 id="payment-notice" class="text-center mt-3"><i>N/B: Your invested assest will be credited
+                            immediately after confirmation of
+                            your transaction</i></h6>
+                        <hr class="line" />
+                        <table class="table">
+                            <tr>
+                                <td>AMOUNT:</td>
+                                <td align="right">$<span class="assets">0</span>.00</td>
+                            </tr>
+                            <tr>
+                                <td>DURATION:</td>
+                                <td align="right" id="duration"></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2" style="width: 45%;">DEPOSIT ADDRESS:</td>
+                                <td>ETH:<span id="eth"></span></td>
+                            </tr>
+                            <tr>
+                                <td>BTC:<span id="btc"></span></td>
+                            </tr>
+                        </table>
+                        <div><input type="button" style="padding: 10px;" value="Process Payment" id="proces-payment"
+                                class="btn btn-success btn-block btn-round btn-lg" /></div>
+
                 </div>
             </div>
         </div>
@@ -163,12 +195,48 @@
 </div>
 
 <script>
-    $('#startup').mouseover(()=> $('#plan-info').html($('#startup h3').html()))
-    $('#premium').mouseover(()=> $('#plan-info').html($('#premium h3').html()))
-    $('#bronze').mouseover(()=> $('#plan-info').html($('#bronze h3').html()))
-    $('#opulence').mouseover(()=> $('#plan-info').html($('#opulence h3').html()))
-    $('#clarke').mouseover(()=> $('#plan-info').html($('#clarke h3').html()))
-    $('#tardis').mouseover(()=> $('#plan-info').html($('#tardis h3').html()))
-    $('#superior').mouseover(()=> $('#plan-info').html($('#superior h3').html()))
-    $('#black-box').mouseover(()=> $('#plan-info').html($('#black-box h3').html()))
+    $('#startup').mouseover(() => {
+        $('#plan-info').html($('#startup h3').html());
+        $('#duration').html($('#startup .panel-header > span').html())
+    })
+    $('#premium').mouseover(() => {
+        $('#plan-info').html($('#premium h3').html());
+        $('#duration').html($('#premium .panel-header > span').html())
+    })
+    $('#bronze').mouseover(() => {
+        $('#plan-info').html($('#bronze h3').html());
+        $('#duration').html($('#bronze .panel-header > span').html())
+    })
+    $('#opulence').mouseover(() => {
+        $('#plan-info').html($('#opulence h3').html());
+        $('#duration').html($('#opulence .panel-header > span').html())
+    })
+    $('#clarke').mouseover(() => {
+        $('#plan-info').html($('#clarke h3').html());
+        $('#duration').html($('#clarke .panel-header > span').html())
+    })
+    $('#tardis').mouseover(() => {
+        $('#plan-info').html($('#tardis h3').html());
+        $('#duration').html($('#tardis .panel-header > span').html())
+    })
+    $('#superior').mouseover(() => {
+        $('#plan-info').html($('#superior h3').html());
+        $('#duration').html($('#superior .panel-header > span').html())
+    })
+    $('#black-box').mouseover(() => {
+        $('#plan-info').html($('#black-box h3').html());
+        $('#duration').html($('#black-box .panel-header > span').html())
+    })
+
+    $('.line').css({
+        "background": "#c714b8",
+        "width": "25%",
+        "height": "3px",
+        "margin": "auto",
+        "margin-top": "20px",
+        "border-radius": "2px"
+    })
+    $('#plan-info').css({
+        "text-align": "center",
+    })
 </script>
